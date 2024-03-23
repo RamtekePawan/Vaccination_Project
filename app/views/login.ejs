@@ -189,7 +189,7 @@ form input[type="submit"]:hover {
         <form action="#">
             <div class="field email">
                 <div class="input-area">
-                    <input type="text" placeholder="Email Address">
+                    <input type="text"   placeholder="Email Address">
                     <i class="icon fas fa-envelope"></i>
                     <i class="error error-icon fas fa-exclamation-circle"></i>
                 </div>
@@ -197,13 +197,13 @@ form input[type="submit"]:hover {
             </div>
             <div class="field password">
                 <div class="input-area">
-                    <input type="password" placeholder="Password">
+                    <input type="password"  placeholder="Password">
                     <i class="icon fas fa-lock"></i>
                     <i class="error error-icon fas fa-exclamation-circle"></i>
                 </div>
                 <div class="error error-txt">Password can't be blank</div>
             </div>
-            <div class="pass-txt"><a href="#">Forgot password?</a></div>
+            <div class="pass-txt d-none"><a href="#">Forgot password?</a></div>
             <input type="submit" value="Login">
         </form>
         <div class="sign-txt">Not yet Registered? <a href="/register">Register now</a></div>
@@ -216,19 +216,27 @@ eField = form.querySelector(".email"),
     pField = form.querySelector(".password"),
     pInput = pField.querySelector("input");
 
-form.onsubmit = (e) => {
-    e.preventDefault();
+  form.onsubmit = (e) => {
+      e.preventDefault();
 
-    (eInput.value == "") ? eField.classList.add("shake", "error"): checkEmail();
-    (pInput.value == "") ? pField.classList.add("shake", "error"): checkPass();
+      (eInput.value == "") ? eField.classList.add("shake", "error"): checkEmail();
+      (pInput.value == "") ? pField.classList.add("shake", "error"): checkPass();
 
-    setTimeout(() => {
-        eField.classList.remove("shake");
-        pField.classList.remove("shake");
-    }, 500);
+      setTimeout(() => {
+          eField.classList.remove("shake");
+          pField.classList.remove("shake");
+      }, 500);
 
-    eInput.onkeyup = () => { checkEmail(); }
-    pInput.onkeyup = () => { checkPass(); }
+      eInput.onkeyup = () => { checkEmail(); }
+      pInput.onkeyup = () => { checkPass(); }
+
+      
+      if (!eField.classList.contains("error") && !pField.classList.contains("error")) {
+          window.location.href = form.getAttribute("action");
+      }
+
+
+    }
 
     function checkEmail() {
         let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
@@ -254,10 +262,6 @@ form.onsubmit = (e) => {
         }
     }
 
-    if (!eField.classList.contains("error") && !pField.classList.contains("error")) {
-        window.location.href = form.getAttribute("action");
-    }
-}
     </script>
 
 </body>

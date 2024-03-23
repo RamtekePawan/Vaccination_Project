@@ -1,0 +1,20 @@
+CREATE TABLE  users (
+	id serial NOT NULL,
+	first_name varchar(255) NULL,
+	middle_name varchar(255) NULL,
+	last_name varchar(255) NULL,
+	address text NULL,
+	email varchar(255) NULL,
+	"password" varchar(255) NULL,
+	blood_group varchar(10) NULL,
+	age int4 NOT NULL,
+	vaccination_certificate_id varchar(255) NULL,
+	vaccination_certificate_date date NULL,
+	first_vaccination_city varchar(255) NULL,
+	second_vaccination_city varchar(255) NULL,
+	created_at timestamp NULL,
+	updated_at timestamp NULL,
+	created_by varchar(255) NULL,
+	updated_by varchar(255) NULL,
+	enabled varchar(2) NULL
+);
