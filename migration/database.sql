@@ -5,7 +5,7 @@ CREATE TABLE  users (
 	last_name varchar(255) NULL,
 	address text NULL,
 	email varchar(255) NULL,
-	"password" varchar(255) NULL,
+	password varchar(255) NULL,
 	blood_group varchar(10) NULL,
 	age int4 NOT NULL,
 	vaccination_certificate_id varchar(255) NULL,
