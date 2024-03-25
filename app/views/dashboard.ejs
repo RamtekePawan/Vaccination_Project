@@ -39,6 +39,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
@@ -103,7 +105,8 @@
                                 <h5 class="card-title my-2 py-3">Profile Details</h5>
                                 <div class="card-body">
                                     <p class="card-title">You can Update your details</p>
-                                    <button class="btn btn-primary" id="updateDetails">Click Here</button>
+                                    <button class="btn btn-primary" data-bs-modal="modal" data-bs-target="#editDetails"
+                                        id="updateDetails">Click Here</button>
                                 </div>
                             </div>
                         </div>
@@ -113,7 +116,8 @@
                                 <h5 class="card-title my-2 py-3">Vaccination Details</h5>
                                 <div class="card-body">
                                     <p class="card-text">You can View Your Vaccination Details</p>
-                                    <button class="btn btn-primary" id="showDetailsButton"> See Details </button>
+                                    <a href="#" class="btn btn-primary" id="showDetailsButton" data-bs-modal="modal"
+                                        data-bs-target="#userDetailsModal"> See Details </a>
                                 </div>
                             </div>
                         </div>
@@ -122,21 +126,198 @@
                 </div>
             </section>
 
-            <!-- Modal -->
-            <div class="modal fade" id="userDetailsModal" tabindex="-1" aria-labelledby="userDetailsModalLabel"
+
+
+
+            <!-- Edit Profile Details -->
+            <div class="modal fade" id="editDetailsModal" tabindex="-1" aria-labelledby="editDetailsModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered modal-fullscreen modal-backdrop">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="userDetailsModalLabel">User Details</h5>
+                            <h5 class="modal-title" id="editDetailsModalLabel">Profile Details</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p><strong>Blood Group:</strong> <span id="bloodGroup"></span></p>
-                            <p><strong>Vaccine ID:</strong> <span id="vaccineId"></span></p>
-                            <p><strong>Vaccine Date:</strong> <span id="vaccineDate"></span></p>
-                            <p><strong>First Vaccination City:</strong> <span id="city1"></span></p>
-                            <p><strong>Second Vaccination City:</strong> <span id="city2"></span></p>
+                            <div class="main">
+                                <div class="main-container m-2 p-3 basic-details">
+                                    <h3 class="row g-3 p-2 m-3">DETAILS</h3>
+                                    <div id="edit Form" class="row g-3 p-2 m-2">
+                                        <div class="col-md-4">
+                                            <label for="firstName" class="form-label">First Name</label>
+                                            <input type="text" class="form-control" value="<%= user.first_name%>"
+                                                id="firstName" name="firstName">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="middleName" class="form-label">Middle Name</label>
+                                            <input type="text" class="form-control" value="<%= user.middle_name%>"
+                                                id="middleName" name="middleName">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="lastName" class="form-label">Last Name</label>
+                                            <input type="text" class="form-control" value="<%= user.last_name%>"
+                                                id="lastName" name="lastName">
+                                        </div>
+
+                                        <div class="col-md-7">
+                                            <label for="inputEmail" class="form-label">Email</label>
+                                            <input type="email" class="form-control" value="<%= user.email%>"
+                                                id="inputEmail" name="email">
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="inputPassword" class="form-label">Password</label>
+                                            <input type="password" class="form-control" value="<%= user.password%>"
+                                                id="inputPassword" name="password">
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="inputAddress" class="form-label">Address</label>
+                                            <input type="text" class="form-control" value="<%= user.address %>"
+                                                id="inputAddress" name="address" placeholder="1234 Main St">
+                                        </div>
+                                        <div class="col-md-5">
+                                            <label for="inputCity" class="form-label">City</label>
+                                            <input type="text" class="form-control" value="<%= user.city %>"
+                                                id="inputCity" name="city">
+                                        </div>
+                                        <div class="col-md-5">
+                                            <label for="inputState" class="form-label">State</label>
+                                            <select id="inputState" class="form-select" name="state">
+                                                <option value="" selected>Choose...</option>
+                                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                                <option value="Assam">Assam</option>
+                                                <option value="Bihar">Bihar</option>
+                                                <option value="Chhattisgarh">Chhattisgarh</option>
+                                                <option value="Goa">Goa</option>
+                                                <option value="Gujarat">Gujarat</option>
+                                                <option value="Haryana">Haryana</option>
+                                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                                <option value="Jharkhand">Jharkhand</option>
+                                                <option value="Karnataka">Karnataka</option>
+                                                <option value="Kerala">Kerala</option>
+                                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                                <option value="Maharashtra">Maharashtra</option>
+                                                <option value="Manipur">Manipur</option>
+                                                <option value="Meghalaya">Meghalaya</option>
+                                                <option value="Mizoram">Mizoram</option>
+                                                <option value="Nagaland">Nagaland</option>
+                                                <option value="Odisha">Odisha</option>
+                                                <option value="Punjab">Punjab</option>
+                                                <option value="Rajasthan">Rajasthan</option>
+                                                <option value="Sikkim">Sikkim</option>
+                                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                                <option value="Telangana">Telangana</option>
+                                                <option value="Tripura">Tripura</option>
+                                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                                <option value="Uttarakhand">Uttarakhand</option>
+                                                <option value="West Bengal">West Bengal</option>
+                                                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands
+                                                </option>
+                                                <option value="Chandigarh">Chandigarh</option>
+                                                <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar
+                                                    Haveli and Daman and Diu</option>
+                                                <option value="Delhi">Delhi</option>
+                                                <option value="Lakshadweep">Lakshadweep</option>
+                                                <option value="Puducherry">Puducherry</option>
+                                                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                                <option value="Ladakh">Ladakh</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="inputZip" class="form-label">Zip</label>
+                                            <input type="text" class="form-control" value="<%= user.zip %>"
+                                                id="inputZip" name="zip">
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <label for="blood_group" class="form-label">Blood Group</label>
+                                            <select class="form-select" id="blood_group" name="blood_group">
+                                                <option value="">Select Blood Group</option>
+                                                <option value="A+">A+</option>
+                                                <option value="A-">A-</option>
+                                                <option value="B+">B+</option>
+                                                <option value="B-">B-</option>
+                                                <option value="AB+">AB+</option>
+                                                <option value="AB-">AB-</option>
+                                                <option value="O+">O+</option>
+                                                <option value="O-">O-</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <label for="vaccine_id" class="form-label">COVID Vaccination Certificate-1
+                                                ID</label>
+                                            <input type="text" class="form-control"
+                                                value="<%= user.vaccination_certificate_id%>" id="vaccine_id"
+                                                name="vaccine_id">
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <label for="vaccine_date" class="form-label">COVID Vaccination Certificate-1
+                                                Date Date</label>
+                                            <input type="date" class="form-control"
+                                                value="<%= user.vaccination_certificate_date%>" id="vaccine_date"
+                                                name="vaccine_date">
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <label for="city1" class="form-label">First Vaccination City Name</label>
+                                            <input type="text" class="form-control"
+                                                value="<%= user.first_vaccination_city%>" id="city1" name="city1">
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <label for="city2" class="form-label">Second Vaccination City Name</label>
+                                            <input type="text" class="form-control"
+                                                value="<%= user.second_vaccination_city%>" id="city2" name="city2">
+                                        </div>
+                                        <br />
+
+                                        <div class="col-2">
+                                            <button type="button" id="updateForm" class="btn btn-primary mt-2 ">Update
+                                                Details</button>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <!-- Modal Vaccine Details -->
+            <div class="modal fade" id="userDetailsModal" tabindex="-1" aria-labelledby="userDetailsModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="userDetailsModalLabel">Vaccine Details</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p><strong>Blood Group:</strong> <span id="bloodGroup">
+                                    <%= user.blood_group ? user.blood_group : 'NA' %>
+                                </span></p>
+                            <p><strong>Vaccine ID:</strong> <span id="vaccineId">
+                                    <%= user.vaccination_certificate_id ? user.vaccination_certificate_id : 'NA' %>
+                                </span></p>
+                            <p><strong>Vaccine Date:</strong> <span id="vaccineDate">
+                                    <%= user.vaccination_certificate_date ? user.vaccination_certificate_date : 'NA' %>
+                                </span></p>
+                            <p><strong>First Vaccination City:</strong> <span id="city1">
+                                    <%= user.first_vaccination_city ? user.first_vaccination_city : 'NA' %>
+                                </span></p>
+                            <p><strong>Second Vaccination City:</strong> <span id="city2">
+                                    <%= user.second_vaccination_city ? user.second_vaccination_city : 'NA' %>
+                                </span></p>
                         </div>
                     </div>
                 </div>
@@ -146,20 +327,103 @@
         <%- include('partials/footer') %>
 
             <script>
+                var blood_group = '<%- user.blood_group %>';
+                var state = '<%= user.state %>'
                 $(document).ready(function () {
-                    $('#showDetailsButton').click(function () {
-                        // Assuming userDetails is an object containing the user's details
-                        
-                        //Ajax call
 
-                        $('#bloodGroup').text(userDetails.bloodGroup);
-                        $('#vaccineId').text(userDetails.vaccineId);
-                        $('#vaccineDate').text(userDetails.vaccineDate);
-                        $('#city1').text(userDetails.city1);
-                        $('#city2').text(userDetails.city2);
+                    // console.log("userStae, bloodGrpp::", state, "wekmfwe");
+                    $('#inputState option[value="' + state + '"]').prop('selected', true);
+                    $('#blood_group option[value="' + blood_group + '"]').prop('selected', true);
 
+                    $('#showDetailsButton').click(function (e) {
+                        e.preventDefault();
                         $('#userDetailsModal').modal('show');
                     });
+
+                    $('#updateDetails').click(function (e) {
+                        e.preventDefault();
+                        $('#editDetailsModal').modal('show');
+                    })
+
+                    $('#updateForm').on('click', function (e) {
+                        e.preventDefault();
+
+                        let firstName = $('#firstName').val();
+                        let middleName = $('#middleName').val();
+                        let lastName = $('#lastName').val();
+                        let email = $('#inputEmail').val();
+                        let password = $('#inputPassword').val();
+                        let address = $('#inputAddress').val();
+                        let city = $('#inputCity').val();
+                        let state = $('#inputState').val();
+                        let zip = $('#inputZip').val();
+                        let bloodGroup = $('#blood_group').val();
+                        let vaccineId = $('#vaccine_id').val();
+                        let vaccineDate = $('#vaccine_date').val();
+                        let city1 = $('#city1').val();
+                        let city2 = $('#city2').val();
+
+                        $.ajax({
+                            url: '/user/update',
+                            method: 'POST',
+                            data: {
+                                firstName: firstName,
+                                middleName: middleName,
+                                lastName: lastName,
+                                email: email,
+                                password: password,
+                                address: address,
+                                city: city,
+                                state: state,
+                                zip: zip,
+                                bloodGroup: bloodGroup,
+                                vaccineId: vaccineId,
+                                vaccineDate: vaccineDate,
+                                city1: city1,
+                                city2: city2
+                            },
+                            success: function (response) {
+                                console.log(response);
+                                if (response.status) {
+                                    console.log("inside if", response.message);
+                                    swal({
+                                        title: response.message,
+                                        type: 'success',
+                                        icon: 'success',
+                                        button: 'OK',
+                                        timer: 2000, // Auto close after 2 seconds
+                                        showConfirmButton: false // Hide the "OK" button
+                                    }).then(() => {
+                                        location.reload();
+                                    });
+                                } else {
+                                    console.log("inside else", response.message);
+                                    swal({
+                                        title: 'Failed !!',
+                                        text: response.message,
+                                        type: 'warning',
+                                        icon: 'warning',
+                                        button: 'OK'
+                                    });
+                                }
+                            },
+                            error: function (error) {
+                                console.log(error.message);
+                                // if (!error.responseJSON.state) {
+                                //     swal({
+                                //         title: 'Failed!!',
+                                //         text: error.responseJSON.message,
+                                //         type: 'warning',
+                                //         icon: 'warning',
+                                //         button: 'OK'
+                                //     });
+                                // }
+                                console.error(error);
+                            }
+                        });
+
+
+                    })
                 })
             </script>
 

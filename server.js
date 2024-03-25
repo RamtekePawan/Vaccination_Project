@@ -21,7 +21,7 @@ const loginRouter = require("./app/routers/login");
 const userRouter = require("./app/routers/user"); 
 
 app.use("/", loginRouter);
-app.use("/user", verifyToken,userRouter);
+app.use("/user", verifyToken, userRouter);
 
 
 const SERVER_PORT = process.env.SERVER_PORT || 3000; // Use port 3000 if SERVER_PORT is not set

@@ -45,7 +45,7 @@ module.exports = {
       secure: true,
     });
     // Sending response to client 
-    return res.status(200).json({ first_name: user.first_name, middle_name: user.middle_name, last_name: user.last_name, address: user.address, email: user.email, status: true, url: 'user/dashboard', message: "Logged in successfully" });
+    return res.status(200).json({ first_name: user.first_name, middle_name: user.middle_name, last_name: user.last_name, address: user.address, city: user.city, state: user.state, zip : user.zip, email: user.email, status: true, url: 'user/dashboard', message: "Logged in successfully" });
   },
 
 
@@ -106,14 +106,14 @@ module.exports = {
 
     console.log("Age is ", age);
     console.log("Address is ", address);
-    let response = await User.addNewUser({ firstName, middleName, lastName, email, password, address, age: Number(age), bloodGroup, vaccineId, vaccineDate, city1, city2 })
+    let response = await User.addNewUser({ firstName, middleName, lastName, email, password, address,city, state, zip, age: Number(age), bloodGroup, vaccineId, vaccineDate, city1, city2 })
     console.log("response::", response.rows[0]);
     let user = response.rows[0];
 
     //passing response to client
     if (user) {
-      const { first_name, middle_name, last_name, email, address } = user;
-      return res.status(201).json({ first_name, middle_name, last_name, address, email, status: true, url: '/login', message: "Registered Successfully!!" });
+      const { first_name, middle_name, last_name, email, address, city, state, zip, age } = user;
+      return res.status(201).json({ first_name, middle_name, last_name, address, city, state, zip, email,age, status: true, url: '/login', message: "Registered Successfully!!" });
     } else {
       return res.status(403).json({ status: false, message: "Invalid User !!!" });
     }
