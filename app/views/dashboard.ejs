@@ -96,7 +96,7 @@
 
             <section class="mt-2 rounded-5">
                 <div class="container">
-                    <h1 class="text-center text-capitalize pt-5">UPGRADE</h1>
+                    <h1 class="text-center text-capitalize pt-5">UPDATE AND VIEW DETAILS</h1>
                     <hr class="w-25 mx-auto pt-5">
 
                     <div class="row text-center mb-5">
@@ -146,29 +146,29 @@
                                         <div class="col-md-4">
                                             <label for="firstName" class="form-label">First Name</label>
                                             <input type="text" class="form-control" value="<%= user.first_name%>"
-                                                id="firstName" name="firstName">
+                                                id="firstName" name="firstName" readonly>
                                         </div>
                                         <div class="col-md-4">
                                             <label for="middleName" class="form-label">Middle Name</label>
                                             <input type="text" class="form-control" value="<%= user.middle_name%>"
-                                                id="middleName" name="middleName">
+                                                id="middleName" name="middleName" readonly>
                                         </div>
                                         <div class="col-md-4">
                                             <label for="lastName" class="form-label">Last Name</label>
                                             <input type="text" class="form-control" value="<%= user.last_name%>"
-                                                id="lastName" name="lastName">
+                                                id="lastName" name="lastName" readonly>
                                         </div>
 
                                         <div class="col-md-7">
-                                            <label for="inputEmail" class="form-label">Email</label>
+                                            <label for="inputEmail" class="form-label ">Email</label>
                                             <input type="email" class="form-control" value="<%= user.email%>"
-                                                id="inputEmail" name="email">
+                                                id="inputEmail" name="email" readonly>
                                         </div>
 
                                         <div class="col-md-6">
                                             <label for="inputPassword" class="form-label">Password</label>
                                             <input type="password" class="form-control" value="<%= user.password%>"
-                                                id="inputPassword" name="password">
+                                                id="inputPassword" name="password" placeholder="********">
                                         </div>
 
                                         <div class="col-12">
@@ -251,27 +251,27 @@
                                                 ID</label>
                                             <input type="text" class="form-control"
                                                 value="<%= user.vaccination_certificate_id%>" id="vaccine_id"
-                                                name="vaccine_id">
+                                                name="vaccine_id" readonly>
                                         </div>
 
                                         <div class="col-md-12">
                                             <label for="vaccine_date" class="form-label">COVID Vaccination Certificate-1
-                                                Date Date</label>
+                                                Date</label>
                                             <input type="date" class="form-control"
                                                 value="<%= user.vaccination_certificate_date%>" id="vaccine_date"
-                                                name="vaccine_date">
+                                                name="vaccine_date" readonly>
                                         </div>
 
                                         <div class="col-md-12">
                                             <label for="city1" class="form-label">First Vaccination City Name</label>
                                             <input type="text" class="form-control"
-                                                value="<%= user.first_vaccination_city%>" id="city1" name="city1">
+                                                value="<%= user.first_vaccination_city%>" id="city1" name="city1" readonly>
                                         </div>
 
                                         <div class="col-md-12">
                                             <label for="city2" class="form-label">Second Vaccination City Name</label>
                                             <input type="text" class="form-control"
-                                                value="<%= user.second_vaccination_city%>" id="city2" name="city2">
+                                                value="<%= user.second_vaccination_city%>" id="city2" name="city2" readonly>
                                         </div>
                                         <br />
 
@@ -328,12 +328,26 @@
 
             <script>
                 var blood_group = '<%- user.blood_group %>';
-                var state = '<%= user.state %>'
-                $(document).ready(function () {
+                var state = '<%= user.state %>';
+                var dateStr = '<%= user.vaccination_certificate_date %>';
 
+                $(document).ready(function () {
+                    
                     // console.log("userStae, bloodGrpp::", state, "wekmfwe");
                     $('#inputState option[value="' + state + '"]').prop('selected', true);
                     $('#blood_group option[value="' + blood_group + '"]').prop('selected', true);
+                    var date = new Date(dateStr);
+                    var parts = dateStr.split(' ');
+                    var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    var month = monthNames.indexOf(parts[1]);
+                    var day = parseInt(parts[2]);
+                    var year = parseInt(parts[3]);
+                    var date = new Date(year, month, day);
+                    var formattedDate = date.getFullYear() + '-' + 
+                            ('0' + (date.getMonth() + 1)).slice(-2) + '-' + 
+                            ('0' + date.getDate()).slice(-2);
+
+                    $('#vaccine_date').val(formattedDate);
 
                     $('#showDetailsButton').click(function (e) {
                         e.preventDefault();
@@ -363,6 +377,87 @@
                         let city1 = $('#city1').val();
                         let city2 = $('#city2').val();
 
+
+                        if (address.trim() === '') {
+                            swal({
+                                title: 'Validation Error',
+                                text: 'Please enter your address',
+                                icon: 'error',
+                                button: 'OK',
+                            });
+                            return;
+                        }
+
+                        if (city.trim() === '') {
+                            swal({
+                                title: 'Validation Error',
+                                text: 'Please enter your city',
+                                icon: 'error',
+                                button: 'OK',
+                            });
+                            return;
+                        }
+
+                        if (state.trim() === '') {
+                            swal({
+                                title: 'Validation Error',
+                                text: 'Please enter your state',
+                                icon: 'error',
+                                button: 'OK',
+                            });
+                            return;
+                        }
+
+                        if (zip.trim() === '') {
+                            swal({
+                                title: 'Validation Error',
+                                text: 'Please enter your ZIP code',
+                                icon: 'error',
+                                button: 'OK',
+                            });
+                            return;
+                        }
+
+                        if (bloodGroup.trim() === '') {
+                            swal({
+                                title: 'Validation Error',
+                                text: 'Please enter your blood group',
+                                icon: 'error',
+                                button: 'OK',
+                            });
+                            return;
+                        }
+
+                        if (vaccineId.trim() === '') {
+                            swal({
+                                title: 'Validation Error',
+                                text: 'Please enter your vaccine ID',
+                                icon: 'error',
+                                button: 'OK',
+                            });
+                            return;
+                        }
+ 
+                        if (city1.trim() === '') {
+                            swal({
+                                title: 'Validation Error',
+                                text: 'Please enter city1',
+                                icon: 'error',
+                                button: 'OK',
+                            });
+                            return;
+                        }
+
+                        if (city2.trim() === '') {
+                            swal({
+                                title: 'Validation Error',
+                                text: 'Please enter city2',
+                                icon: 'error',
+                                button: 'OK',
+                            });
+                            return;
+                        }
+ 
                         $.ajax({
                             url: '/user/update',
                             method: 'POST',
