@@ -5,12 +5,21 @@ const generateToken = (user) => {
   return jwt.sign({ user }, process.env.JWT_PARSER_SECRET, { expiresIn: "1day" })
 }
 
+let usersArray  = [];
+ 
+
 module.exports = {
 
   logOut: async (req, res) => {
     // Clear the token cookie to logout the user
-    res.clearCookie("token", { path: "/" });
+    console.log("req::",req.user.email )
+  
+    usersArray.filter(email=> email !== req.user.email)
 
+    // req.io.emit('logout', req.user.email );
+
+    res.clearCookie("token", { path: "/" });
+    
     // Redirect or send a response as needed
     module.exports.getLogInPage(req, res);
   },
@@ -18,8 +27,8 @@ module.exports = {
 
   userLogin: async (req, res) => {
     const { email, password } = req.body;
-    console.log("userLogin req.body:: ", req.body);
-    console.log('userLogin:::', email, password);
+    // console.log("userLogin req.body:: ", req.body);
+    // console.log('userLogin:::', email, password);
 
     // Check if the user with the provided email exists
     let user = await User.getUserByEmail(email)
@@ -36,6 +45,7 @@ module.exports = {
     }
 
     // Generate and send JWT token
+    res.clearCookie("token");
     const token = generateToken(user);
     res.cookie("token", token, {
       path: "/",                               //root path
@@ -44,6 +54,8 @@ module.exports = {
       sameSite: "none",
       secure: true,
     });
+
+    // req.io.emit('login', req.user.email );
     // Sending response to client 
     return res.status(200).json({ first_name: user.first_name, middle_name: user.middle_name, last_name: user.last_name, address: user.address, city: user.city, state: user.state, zip : user.zip, email: user.email, status: true, url: 'user/dashboard', message: "Logged in successfully" });
   },
@@ -55,8 +67,9 @@ module.exports = {
       return res.render('login.ejs')
     }
   },
+
   getRegisterPage: async (req, res) => {
-    console.log('getRegisterPage:::')
+    console.log('getRegisterPage')
     return res.render('registerPage.ejs')
   },
 
@@ -69,12 +82,12 @@ module.exports = {
     let { firstName, middleName, lastName, email, dateOfBirth, password, address, city, state, zip, bloodGroup, vaccineId, vaccineDate, city1, city2 }
       = { ...req.body, ...req.params, ...req.query }
 
-    console.log('addUser:::', firstName, middleName, lastName, email, password, address, city, state, zip, dateOfBirth, bloodGroup)
+    // console.log('addUser:::', firstName, middleName, lastName, email, password, address, city, state, zip, dateOfBirth, bloodGroup)
     email = email.trim();
 
     //check already exist or not
     let alreadyExist = await User.getUserByEmail(email);
-    console.log("Already Exist :::", alreadyExist.rows);
+    // console.log("Already Exist :::", alreadyExist.rows);
 
     if (alreadyExist.rows.length > 0) {
       return res.status(403).json({ status: false, message: 'User already exists' });

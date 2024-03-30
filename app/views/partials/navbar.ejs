@@ -40,7 +40,7 @@
                             <%= user.first_name +" "+ user.last_name %></a> 
                     </li>
                     <li class=" nav-item ml-auto border-box bor bg-danger">
-                                <a class="nav-link text-white rounded-pill" href="/logout"><strong>Logout</strong></a>
+                      <a id="logout-link" data-email="<%= user.email %>" class="nav-link text-white rounded-pill" href="/logout"><strong>Logout</strong></a>
                     </li>
                     <%}%>
             </ul>
@@ -96,3 +96,17 @@
 
 
 </header>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      var logoutLink = document.getElementById('logout-link');
+      var userEmail = logoutLink.getAttribute('data-email');
+      const socket = io();
+      logoutLink.addEventListener('click', function(event) { 
+          console.log('Inside event',userEmail)
+          event.preventDefault(); // Prevent the default link behavior
+          socket.emit('logoutSuccess', userEmail); // Emit your custom event
+          window.location.href = logoutLink.getAttribute('href'); // Redirect to the logout route
+      });
+  });
+  </script>

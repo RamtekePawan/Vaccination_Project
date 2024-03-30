@@ -9,7 +9,7 @@ module.exports = class User {
       text: `SELECT * FROM users WHERE email = $1 AND enabled = '1';`,
       values: [email],
     }
-    console.log('statement getUserByEmail::', statement)
+    // console.log('statement getUserByEmail::', statement)
     return pool.query(statement)
   }
 
@@ -19,7 +19,7 @@ module.exports = class User {
             VALUES ($1, $2, $3, $4, $5, $6, $7,$8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING *;`,
       values: [firstName, middleName, lastName, email, password, address, city, state, zip, age, bloodGroup, vaccineId, vaccineDate, city1, city2, 1],
     }
-    console.log('statement addNewUser::', statement)
+    // console.log('statement addNewUser::', statement)
     return pool.query(statement)
   }
 
@@ -48,7 +48,7 @@ module.exports = class User {
 
       values: [firstName, middleName, lastName, password, address, city, state, zip, bloodGroup, vaccineId, vaccineDate, city1, city2, email, id]
     }
-    console.log('statement addNewUser::', statement)
+    // console.log('statement addNewUser::', statement)
     return pool.query(statement)
   }
 
