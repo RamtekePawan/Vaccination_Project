@@ -36,3 +36,15 @@ VALUES (
     (
         'Jessica', 'Nicole', 'Jones', '707 Pine St', 'jessica.jones@example.com', 'admin789', 'A+', 33, 'Georgia', 'Atlanta', 30301, 'VCID010', '2023-01-20', 'Atlanta', 'Savannah', '2023-03-24 19:00:00', '2023-03-24 19:00:00', 'admin', 'admin', 1
     );
+
+
+    	
+	
+CREATE TABLE user_images (
+    id serial PRIMARY KEY,
+    user_id int NOT NULL REFERENCES users(id),
+    image_name varchar(255) NOT NULL,
+    image_data text NOT NULL,
+    image_binary bytea NOT NULL,
+    created_at timestamp DEFAULT current_timestamp
+);
